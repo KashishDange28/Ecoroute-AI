@@ -1,0 +1,132 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Tracking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJFTnV5d1884Y1Afz_Ya7Sc45PvcvEXM&callback=initMap&libraries=places" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    #map {
+      height: 400px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+  </div>
+  <!-- Main Content -->
+  <div class="container mx-auto p-8 mt-16">
+   <h1 class="text-3xl font-bold text-center text-green-700 mb-8">
+    Real-Time Tracking
+   </h1>
+   <div class="bg-white p-8 rounded-lg shadow-md mb-6 fade-in">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">
+     What it Does:
+    </h2>
+    <p class="text-gray-600 mb-6">
+     GPS-enabled AI systems provide real-time tracking of waste collection trucks, ensuring timely pickups and deliveries.
+    </p>
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">
+     Benefits:
+    </h2>
+    <ul class="list-disc list-inside text-gray-600">
+     <li>
+      Ensures timely pickups and deliveries.
+     </li>
+     <li>
+      Alerts the biogas plant about incoming loads to prepare for processing.
+     </li>
+    </ul>
+   </div>
+   <div class="fade-in" id="map">
+   </div>
+   <a class="btn-primary block text-center py-4 px-6 rounded-lg shadow-lg bg-green-600 text-white mt-6 hover:bg-green-700 transition duration-300" href="index.html">
+    Back to Home
+   </a>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <script>
+   let map, directionsService, directionsRenderer;
+
+   function initMap() {
+     map = new google.maps.Map(document.getElementById('map'), {
+       center: { lat: 40.7128, lng: -74.0060 },
+       zoom: 13,
+     });
+     directionsService = new google.maps.DirectionsService();
+     directionsRenderer = new google.maps.DirectionsRenderer();
+     directionsRenderer.setMap(map);
+   }
+
+   window.onload = initMap;
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>

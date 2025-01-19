@@ -1,0 +1,166 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-Driven Load Balancing - Waste Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="login.html">
+      <i class="fas fa-sign-in-alt">
+      </i>
+      Login
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="login.html">
+    <i class="fas fa-sign-in-alt">
+    </i>
+    Login
+   </a>
+  </div>
+  <!-- Main Content -->
+  <div class="min-h-screen flex flex-col items-center justify-center p-6 mt-16">
+   <div class="card w-full max-w-3xl bg-white p-8 rounded-lg shadow-md fade-in">
+    <h1 class="heading mb-6 text-center text-4xl font-bold text-green-800">
+     Load Balancing for Waste Collection
+    </h1>
+    <p class="subheading text-center mb-6 text-lg text-gray-700">
+     AI-driven load balancing ensures waste collection trucks are optimally loaded for maximum efficiency.
+    </p>
+    <!-- Load Balancing Details -->
+    <div class="text-center mb-6">
+     <p class="text-lg text-gray-700 mb-4">
+      Benefits of Load Balancing:
+     </p>
+     <ul class="list-disc list-inside text-left text-gray-600 mx-auto max-w-md">
+      <li>
+       Avoids underloading or overloading trucks.
+      </li>
+      <li>
+       Maximizes the efficiency of each trip.
+      </li>
+     </ul>
+    </div>
+    <!-- Input Fields for Truck Capacity and Load -->
+    <div class="flex flex-col items-center mb-6">
+     <input class="input px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 mb-4" id="truckCapacity" placeholder="Enter truck capacity (kg)" type="number"/>
+     <input class="input px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 mb-4" id="wasteLoad" placeholder="Enter current waste load (kg)" type="number"/>
+     <button class="btn-primary bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-300" onclick="calculateLoadBalance()">
+      Balance Load
+     </button>
+    </div>
+    <!-- Load Balance Info Section -->
+    <div class="balance-info hidden bg-green-100 p-6 rounded-lg shadow-md">
+     <p class="text-lg font-semibold text-gray-700" id="statusMessage">
+     </p>
+     <p class="text-md text-gray-600" id="remainingCapacity">
+     </p>
+    </div>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <!-- JavaScript for Load Balancing -->
+  <script>
+   function calculateLoadBalance() {
+     const truckCapacity = parseFloat(document.getElementById('truckCapacity').value);
+     const wasteLoad = parseFloat(document.getElementById('wasteLoad').value);
+
+     if (isNaN(truckCapacity) || isNaN(wasteLoad) || truckCapacity <= 0 || wasteLoad < 0) {
+       alert('Please enter valid numbers for capacity and load.');
+       return;
+     }
+
+     const remainingCapacity = truckCapacity - wasteLoad;
+     const statusMessage = document.getElementById('statusMessage');
+     const remainingCapacityElement = document.getElementById('remainingCapacity');
+     const balanceInfoSection = document.getElementById('balanceInfo');
+
+     if (wasteLoad > truckCapacity) {
+       statusMessage.textContent = 'Overloaded! The truck cannot carry more waste.';
+       remainingCapacityElement.textContent = `Current excess load: ${wasteLoad - truckCapacity} kg.`;
+     } else if (wasteLoad === truckCapacity) {
+       statusMessage.textContent = 'The truck is perfectly loaded!';
+       remainingCapacityElement.textContent = 'No remaining capacity.';
+     } else {
+       statusMessage.textContent = 'Truck load is balanced.';
+       remainingCapacityElement.textContent = `Remaining capacity: ${remainingCapacity} kg.`;
+     }
+
+     balanceInfoSection.classList.remove('hidden');
+   }
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,187 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AI-Driven Logistics for Biogas Plants</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+   body {
+     font-family: 'Playfair Display', serif;
+   }
+   .fade-in {
+     animation: fadeIn 2s ease-in-out;
+   }
+   @keyframes fadeIn {
+     from {
+       opacity: 0;
+     }
+     to {
+       opacity: 1;
+     }
+   }
+   .slide-in {
+     animation: slideIn 1s ease-in-out;
+   }
+   @keyframes slideIn {
+     from {
+       transform: translateY(20px);
+       opacity: 0;
+     }
+     to {
+       transform: translateY(0);
+       opacity: 1;
+     }
+   }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+     <!-- Logo and Title -->
+     <div class="flex items-center space-x-3">
+       <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+ 
+      <a class="text-2xl font-bold text-white" href="#">
+       EcoRoute AI
+      </a>
+     </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">Home</a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">Features</a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">Contact</a>
+     <a href="login.html" class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300">
+      <i class="fas fa-sign-in-alt"></i> Login
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars"></i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">Home</a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">Features</a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">Contact</a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="login.html">
+    <i class="fas fa-sign-in-alt"></i> Login
+   </a>
+  </div>
+  <!-- Hero Section -->
+  <section class="bg-green-600 py-20 mt-16 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <h1 class="text-4xl font-bold text-white mb-4">
+     AI-Driven Logistics for Biogas Plants
+    </h1>
+    <p class="text-white mb-8">
+     Optimize waste collection and transportation with AI.
+    </p>
+    <button class="bg-white text-green-600 px-6 py-3 rounded-full hover:bg-gray-200 transition duration-300">
+     Learn More
+    </button>
+   </div>
+  </section>
+  <!-- Features Section -->
+  <section class="py-20 bg-gray-100">
+   <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-12 slide-in">
+     AI-Driven Logistics Features
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing route optimization" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/FU4Ie6LUeuFCt9-p1SFGmvECCQLr8Ky_cDkz-Sjv1uo.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Route Optimization
+      </h3>
+      <p class="text-gray-600">
+       Uses AI to calculate the shortest and most efficient routes for waste collection trucks.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing load balancing" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/IHHvtF1EZNHd-OEArS9JxFoTDcC3IkU7sm2nh6VFGGM.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Load Balancing
+      </h3>
+      <p class="text-gray-600">
+       Ensures that waste collection trucks are optimally loaded based on their capacity and route.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing predictive demand and supply" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/6Uq8iAeGEC9CglviZnnMYTDCvIywkUMNV5y6cVkNdGM.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Predictive Demand and Supply
+      </h3>
+      <p class="text-gray-600">
+       AI predicts waste generation patterns from industries based on historical data, type of industry, and seasonality.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing real-time tracking" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/fVSQVJ4CCGULqS0FZZ2RjGFxAA5ftvvM3mdUlSjb1GE.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Real-Time Tracking
+      </h3>
+      <p class="text-gray-600">
+       GPS-enabled AI systems provide real-time tracking of waste collection trucks.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing dynamic scheduling" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/eBWEZ2ZIOw1mv9L2L3uhQzZY0RZezKE1okHq_FUpORo.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Dynamic Scheduling
+      </h3>
+      <p class="text-gray-600">
+       AI dynamically schedules truck dispatches based on the industry's waste generation trends and urgency.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing cost estimation" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/ROuq6tKUnqfLE_M9TFwocsxV1bSuo4dsk0utcFkmsdw.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Cost Estimation
+      </h3>
+      <p class="text-gray-600">
+       AI calculates logistics costs per trip, considering fuel prices, route length, and truck capacity.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing driver assistance systems" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/0PklfhXvWfU6-N5_QS9q8_qKcx90L97nueL7DlTIZks.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Driver Assistance Systems
+      </h3>
+      <p class="text-gray-600">
+       AI systems assist drivers with navigation, fuel-efficient driving techniques, and safety alerts.
+      </p>
+     </div>
+     <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300 slide-in">
+      <img alt="Icon representing sustainability monitoring" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/24QJ1K5HpDc9fUsZiU7GkFNC_PnZF2GH7QNzF_W2nTY.jpg" width="100"/>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">
+       Sustainability Monitoring
+      </h3>
+      <p class="text-gray-600">
+       Tracks CO₂ emissions from logistics operations and suggests ways to reduce them.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+      © 2025 EcoRoute AI. All rights reserved.
+     </p>
+   </div>
+  </footer>
+  <!-- JavaScript to handle mobile menu toggle -->
+  <script>
+   document.getElementById('menu-btn').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+ </body>
+</html>

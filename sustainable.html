@@ -1,0 +1,141 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sustainability Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+  </div>
+  <!-- Container for Sustainability Dashboard -->
+  <div class="container mx-auto p-5 mt-16">
+   <h2 class="text-3xl font-bold text-center text-green-700 mb-6">
+    Sustainability Monitoring Dashboard
+   </h2>
+   <!-- CO₂ Emissions Chart -->
+   <div class="mt-10 p-5 bg-white rounded-lg shadow-md fade-in">
+    <h3 class="text-xl font-semibold">
+     CO₂ Emissions Overview
+    </h3>
+    <canvas height="200" id="co2Chart" width="400">
+    </canvas>
+   </div>
+   <!-- Improvement Suggestions Section -->
+   <div class="mt-10 p-5 bg-white rounded-lg shadow-md fade-in">
+    <h3 class="text-xl font-semibold">
+     Suggested Improvements
+    </h3>
+    <ul class="list-disc pl-5" id="suggestionsList">
+     <li>
+      Switch to a more fuel-efficient vehicle.
+     </li>
+     <li>
+      Use optimized routes to reduce traffic-related emissions.
+     </li>
+     <li>
+      Avoid non-essential trips to save fuel.
+     </li>
+    </ul>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <!-- Script to simulate CO₂ Emissions data visualization -->
+  <script>
+   // Example CO₂ emissions data (for demonstration purposes)
+   const emissionsData = {
+     labels: ['Vehicle 1', 'Vehicle 2', 'Vehicle 3', 'Vehicle 4', 'Vehicle 5'],
+     datasets: [{
+       label: 'CO₂ Emissions (kg)',
+       data: [120, 80, 150, 200, 130],
+       backgroundColor: 'rgba(75, 192, 192, 0.2)',
+       borderColor: 'rgba(75, 192, 192, 1)',
+       borderWidth: 1
+     }]
+   };
+
+   // Create CO₂ Emissions Bar Chart
+   const ctx = document.getElementById('co2Chart').getContext('2d');
+   const co2Chart = new Chart(ctx, {
+     type: 'bar',
+     data: emissionsData,
+     options: {
+       scales: {
+         y: {
+           beginAtZero: true
+         }
+       }
+     }
+   });
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,179 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Scheduling - Waste Pickup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-200">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+  </div>
+  <!-- Main Content -->
+  <div class="container mx-auto p-8 mt-16">
+   <h1 class="text-3xl font-bold text-center text-green-700 mb-6">
+    Dynamic Scheduling - Waste Pickup
+   </h1>
+   <!-- Scheduling Interface -->
+   <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg fade-in">
+    <form id="scheduling-form">
+     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+      <!-- Waste Generation Pattern -->
+      <div class="mb-4">
+       <label class="block text-sm font-medium text-gray-700" for="waste_generation">
+        Waste Generation (kg)
+       </label>
+       <input class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="waste_generation" name="waste_generation" required="" type="number"/>
+      </div>
+      <!-- Urgency Level -->
+      <div class="mb-4">
+       <label class="block text-sm font-medium text-gray-700" for="urgency_level">
+        Urgency Level (1-5)
+       </label>
+       <input class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="urgency_level" max="5" min="1" name="urgency_level" required="" type="number"/>
+      </div>
+     </div>
+     <!-- Truck Availability -->
+     <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="truck_availability">
+       Truck Availability (units)
+      </label>
+      <input class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="truck_availability" name="truck_availability" required="" type="number"/>
+     </div>
+     <button class="w-full p-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-300" type="submit">
+      Generate Schedule
+     </button>
+    </form>
+   </div>
+   <!-- Scheduling Result -->
+   <div class="max-w-4xl mx-auto mt-6 text-center hidden" id="schedule-result">
+    <h3 class="text-xl font-medium text-gray-800" id="schedule-output">
+    </h3>
+   </div>
+   <!-- Adjustments -->
+   <div class="mt-8 max-w-4xl mx-auto hidden" id="adjustments">
+    <h2 class="text-xl font-medium text-gray-800">
+     Adjustments
+    </h2>
+    <div class="mt-4" id="adjustments-output">
+     <!-- Adjustments will be displayed here dynamically -->
+    </div>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <script>
+   // Form and Result Elements
+   const form = document.getElementById('scheduling-form');
+   const scheduleResult = document.getElementById('schedule-result');
+   const scheduleOutput = document.getElementById('schedule-output');
+   const adjustmentsSection = document.getElementById('adjustments');
+   const adjustmentsOutput = document.getElementById('adjustments-output');
+
+   // Dynamic scheduling logic simulation
+   function generateSchedule(wasteGen, urgency, truckAvailability) {
+     // Example scheduling logic (this can be refined or replaced with AI-based logic)
+     const trucksNeeded = Math.ceil(wasteGen / 100);  // Assuming each truck can handle 100 kg of waste
+     const adjustedUrgency = urgency >= 4 ? 'High' : 'Low';
+     const truckStatus = trucksNeeded <= truckAvailability ? 'Available' : 'Not Available';
+
+     return { trucksNeeded, adjustedUrgency, truckStatus };
+   }
+
+   form.addEventListener('submit', (event) => {
+     event.preventDefault();
+
+     // Get form data
+     const wasteGen = parseFloat(document.getElementById('waste_generation').value);
+     const urgency = parseInt(document.getElementById('urgency_level').value);
+     const truckAvailability = parseInt(document.getElementById('truck_availability').value);
+
+     // Generate schedule based on the data
+     const schedule = generateSchedule(wasteGen, urgency, truckAvailability);
+
+     // Display the schedule
+     scheduleOutput.textContent = `Trucks Needed: ${schedule.trucksNeeded}, Urgency Level: ${schedule.adjustedUrgency}, Truck Availability Status: ${schedule.truckStatus}`;
+     scheduleResult.classList.remove('hidden');
+
+     // Show adjustments interface if needed
+     if (schedule.truckStatus === 'Not Available') {
+       adjustmentsSection.classList.remove('hidden');
+       adjustmentsOutput.innerHTML = `
+                    <p class="text-sm text-red-600">Action Required: Increase truck availability or adjust scheduling.</p>
+                    <div class="mt-4">
+                        <button class="bg-yellow-500 text-white p-2 rounded-md hover:bg-yellow-600">Adjust Truck Availability</button>
+                    </div>
+                `;
+     } else {
+       adjustmentsSection.classList.add('hidden');
+     }
+   });
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>

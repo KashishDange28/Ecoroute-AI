@@ -1,0 +1,224 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predictive Demand and Supply for Waste Management</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="index.html">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+  </div>
+  <!-- Main Content -->
+  <div class="container mx-auto p-8 mt-16">
+   <h1 class="text-3xl font-bold text-center text-green-700 mb-6">
+    Predictive Demand and Supply for Waste Management
+   </h1>
+   <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg fade-in">
+    <div id="output" class="text-center">
+     <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+      Predicted Waste Generation for Next Month:
+     </h2>
+     <p class="text-lg text-gray-700" id="prediction">
+     </p>
+    </div>
+    <div class="mt-6">
+     <h3 class="text-xl font-semibold text-gray-800 mb-4">
+      Historical Data
+     </h3>
+     <table class="min-w-full bg-white">
+      <thead>
+       <tr>
+        <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">
+         Date
+        </th>
+        <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">
+         Waste (kg)
+        </th>
+       </tr>
+      </thead>
+      <tbody id="historical-data">
+      </tbody>
+     </table>
+    </div>
+    <div class="mt-6">
+     <h3 class="text-xl font-semibold text-gray-800 mb-4">
+      Add New Data
+     </h3>
+     <form id="data-form">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+       <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="new-date">
+         Date (YYYY-MM)
+        </label>
+        <input class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="new-date" name="new-date" required="" type="text"/>
+       </div>
+       <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="new-waste">
+         Waste (kg)
+        </label>
+        <input class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="new-waste" name="new-waste" required="" type="number"/>
+       </div>
+      </div>
+      <button class="w-full p-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-300" type="submit">
+       Add Data
+      </button>
+     </form>
+    </div>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <script>
+   // Example historical data (for demo purposes)
+   let historicalData = [
+     { date: '2023-01', waste: 100 },
+     { date: '2023-02', waste: 120 },
+     { date: '2023-03', waste: 130 },
+     { date: '2023-04', waste: 110 },
+     { date: '2023-05', waste: 140 },
+     // Add more historical data here
+   ];
+
+   // Function to update the historical data table
+   function updateHistoricalDataTable() {
+     const tableBody = document.getElementById('historical-data');
+     tableBody.innerHTML = '';
+     historicalData.forEach(item => {
+       const row = document.createElement('tr');
+       row.innerHTML = `
+         <td class="py-2 px-4 border-b border-gray-200">${item.date}</td>
+         <td class="py-2 px-4 border-b border-gray-200">${item.waste}</td>
+       `;
+       tableBody.appendChild(row);
+     });
+   }
+
+   // Initial update of the historical data table
+   updateHistoricalDataTable();
+
+   // Extract input and output values from data
+   function getInputOutputData() {
+     const inputData = historicalData.map(item => item.date);
+     const outputData = historicalData.map(item => item.waste);
+
+     // Preprocessing the data (e.g., normalizing or scaling might be needed in real scenarios)
+     const normalizedInputs = inputData.map(d => {
+       return new Date(d).getMonth() + 1; // Convert months to numbers
+     });
+
+     return { normalizedInputs, outputData };
+   }
+
+   // TensorFlow.js: Prepare tensors for training
+   function prepareTensors() {
+     const { normalizedInputs, outputData } = getInputOutputData();
+     const inputs = tf.tensor2d(normalizedInputs, [normalizedInputs.length, 1]);
+     const outputs = tf.tensor2d(outputData, [outputData.length, 1]);
+     return { inputs, outputs };
+   }
+
+   // Build a simple model using TensorFlow.js
+   const model = tf.sequential();
+   model.add(tf.layers.dense({ units: 64, inputShape: [1], activation: 'relu' }));
+   model.add(tf.layers.dense({ units: 1 }));
+
+   model.compile({ optimizer: 'adam', loss: 'meanSquaredError' });
+
+   // Train the model with the data
+   async function trainModel() {
+     const { inputs, outputs } = prepareTensors();
+     await model.fit(inputs, outputs, { epochs: 500 });
+     console.log('Model trained');
+
+     // Make a prediction for the next month (e.g., for month 6)
+     const prediction = model.predict(tf.tensor2d([[6]], [1, 1]));
+     prediction.array().then(pred => {
+       document.getElementById('prediction').innerText = `Predicted waste generation for next month: ${Math.round(pred[0][0])} units`;
+     });
+   }
+
+   trainModel();
+
+   // Handle form submission to add new data
+   document.getElementById('data-form').addEventListener('submit', function (event) {
+     event.preventDefault();
+     const newDate = document.getElementById('new-date').value;
+     const newWaste = parseFloat(document.getElementById('new-waste').value);
+
+     if (newDate && !isNaN(newWaste)) {
+       historicalData.push({ date: newDate, waste: newWaste });
+       updateHistoricalDataTable();
+       trainModel(); // Retrain the model with the new data
+     }
+   });
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,137 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Driver Assistance System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-green-700 shadow-md fixed w-full z-10 top-0 fade-in">
+   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo and Title -->
+    <div class="flex items-center space-x-3">
+     <img alt="Logo of EcoRoute AI" class="h-10 w-10 rounded-full" height="40" src="logo.webp" width="40"/>
+     <a class="text-2xl font-bold text-white" href="#">
+      EcoRoute AI
+     </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="index.html">
+      Home
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Features
+     </a>
+     <a class="text-white hover:bg-green-800 px-3 py-2 rounded-md transition duration-300" href="#">
+      Contact
+     </a>
+    </div>
+    <div class="md:hidden">
+     <button class="text-white focus:outline-none" id="menu-btn">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Menu -->
+  <div class="hidden md:hidden bg-green-700" id="mobile-menu">
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Home
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Features
+   </a>
+   <a class="block px-4 py-2 text-white hover:bg-green-800 transition duration-300" href="#">
+    Contact
+   </a>
+  </div>
+  <!-- Container for Driver's Dashboard -->
+  <div class="container mx-auto my-10 p-5 bg-white rounded-lg shadow-lg fade-in mt-16">
+   <h2 class="text-2xl font-semibold text-center">
+    Driver Assistance System
+   </h2>
+   <!-- Real-time Feedback Section -->
+   <div class="mt-5 p-5 border border-gray-300 rounded-lg">
+    <h3 class="text-xl font-semibold">
+     Real-Time Feedback
+    </h3>
+    <div class="mt-3 text-center text-lg text-red-500" id="feedback">
+     <!-- Dynamic feedback goes here -->
+     Speeding! Reduce speed for better fuel efficiency.
+    </div>
+   </div>
+   <!-- Vehicle Performance Section -->
+   <div class="mt-5 p-5 border border-gray-300 rounded-lg">
+    <h3 class="text-xl font-semibold">
+     Vehicle Performance
+    </h3>
+    <div class="mt-3 text-lg" id="fuelConsumption">
+     Current Fuel Efficiency: 12 km/l
+    </div>
+   </div>
+   <!-- Route Information Section -->
+   <div class="mt-5 p-5 border border-gray-300 rounded-lg">
+    <h3 class="text-xl font-semibold">
+     Route Information
+    </h3>
+    <div class="mt-3 text-lg" id="routeInfo">
+     Upcoming: 5 km of downhill road
+    </div>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-green-700 py-6 fade-in">
+   <div class="container mx-auto px-4 text-center">
+    <p class="text-white">
+     © 2025 EcoRoute AI. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <!-- Script to simulate real-time feedback -->
+  <script>
+   // Example JavaScript to simulate real-time feedback
+   setInterval(() => {
+     let fuelEfficiency = Math.random() * 20; // Simulating fuel efficiency
+     let speed = Math.random() * 120; // Simulating speed (in km/h)
+     let feedback = '';
+     if (speed > 80) {
+       feedback = "Speeding! Reduce speed for better fuel efficiency.";
+       document.getElementById('feedback').classList.add("text-red-500");
+       document.getElementById('feedback').classList.remove("text-green-500");
+     } else {
+       feedback = "Good driving! Maintain your speed.";
+       document.getElementById('feedback').classList.add("text-green-500");
+       document.getElementById('feedback').classList.remove("text-red-500");
+     }
+
+     // Update the feedback and fuel consumption
+     document.getElementById('feedback').innerText = feedback;
+     document.getElementById('fuelConsumption').innerText = `Current Fuel Efficiency: ${fuelEfficiency.toFixed(2)} km/l`;
+   }, 2000); // Updates every 2 seconds (for demo purposes)
+
+   document.getElementById('menu-btn').addEventListener('click', function () {
+     const mobileMenu = document.getElementById('mobile-menu');
+     mobileMenu.classList.toggle('hidden');
+   });
+  </script>
+ </body>
+</html>
